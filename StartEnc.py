@@ -1,10 +1,8 @@
-from asyncio import run_coroutine_threadsafe
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import filedialog
 import win32api
 import os, sys
-from pathlib import Path
 
 # ---------------------------------------------------------------------
 # 這一支程式，主要的目的為調用外部的exe檔(名稱為enc.exe)，並使用它加密我們所
@@ -45,7 +43,7 @@ def base_path(path):
     return os.path.join(basedir, path)
 
 def Encrypt():
-    # 調用外部exe檔，執行解密的function
+    # 調用外部exe檔，執行加密的function
     # Route_Divide將原本取得的檔案位址分割，我們只要檔名的部分，分割後取其最後一個值並命名為File_Name
     Route_Divide=Route.split('/',)
     File_Name=Route_Divide[-1]
@@ -56,7 +54,7 @@ def Encrypt():
     os.chdir(release_route) # 先把工作路徑變成解壓路徑
 
     # 使用win32api模組，請他執行外部程式參數位置及意義依序為
-    # (, 執行動作, 想執行的程式, 想用該程式開啟的檔案, , 是否在前臺開起)
+    # (父視窗控制代碼沒有則為0, 執行動作, 想執行的程式, 想用該程式開啟的檔案, 程式初始化目錄, 是否在前臺開起)
     # 我們使用下列函數，來調用外部「enc.exe」這個加密檔，並請他加密File_Name這一個檔案。
     win32api.ShellExecute(0, 'open', 'enc.exe', File_Name, '', 1)      # 前臺開啟
 
